@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>AlgoLinx: Focused, reliable software products</title>
+    <meta name="description" content="AlgoLinx builds focused software products designed with discipline and long term usability. Starting with Oath, software that enforces commitments.">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/website_favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/website_favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
+    <style>
+        * {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+        
+        /* Black & White Design System */
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-50: #fafafa;
+            --color-gray-100: #f5f5f5;
+            --color-gray-200: #e5e5e5;
+            --color-gray-300: #d4d4d4;
+            --color-gray-400: #a3a3a3;
+            --color-gray-500: #737373;
+            --color-gray-600: #525252;
+            --color-gray-700: #404040;
+            --color-gray-800: #262626;
+            --color-gray-900: #171717;
+        }
+        
+        /* Header with active state */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: saturate(180%) blur(10px);
+            border-bottom: 1px solid var(--color-gray-200);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Navigation with active indicators */
+        nav a {
+            position: relative;
+            font-weight: 500;
+            color: var(--color-gray-600);
+            transition: color 0.2s ease;
+            font-size: 15px;
+        }
+        
+        nav a.active {
+            color: var(--color-black);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--color-black);
+            transition: width 0.3s ease;
+        }
+        
+        nav a.active::after,
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--color-black);
+        }
+        
+        /* Button system */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 8px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn-black {
+            background: var(--color-black);
+            color: var(--color-white);
+            border: 1px solid var(--color-black);
+        }
+        
+        .btn-black:hover {
+            background: var(--color-gray-900);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-black:active {
+            transform: translateY(0);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--color-black);
+            border: 1.5px solid var(--color-gray-300);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--color-black);
+            background: var(--color-gray-50);
+        }
+        
+        .btn-white {
+            background: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-white:hover {
+            background: var(--color-gray-100);
+            transform: translateY(-1px);
+        }
+        
+        /* Card system */
+        .card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+            border-color: var(--color-gray-300);
+        }
+        
+        /* Oath-specific black theme */
+        .oath-section {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+        
+        .oath-card {
+            background: var(--color-gray-900);
+            border: 1px solid var(--color-gray-800);
+        }
+        
+        .oath-card:hover {
+            background: var(--color-gray-800);
+            border-color: var(--color-gray-700);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--color-gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .modal-close:hover {
+            background: var(--color-gray-200);
+        }
+        
+        .modal-header {
+            margin-bottom: 24px;
+        }
+        
+        .modal-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .modal-header p {
+            font-size: 14px;
+            color: var(--color-gray-600);
+        }
+        
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .modal-form input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--color-gray-300);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .modal-form button {
+            width: 100%;
+        }
+        
+        .modal-success {
+            display: none;
+            padding: 12px 16px;
+            background: #dcfce7;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .modal-success.show {
+            display: block;
+        }
+        
+        .modal-success p {
+            color: #166534;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        /* Input styles */
+        input[type="email"] {
+            transition: all 0.2s ease;
+            border: 1.5px solid var(--color-gray-300);
+        }
+        
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--color-black);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gray-200), transparent);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 65px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 40;
+            padding: 24px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 16px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+        
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--color-black);
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-black);
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+        }
+        
+        /* Typography scale */
+        .text-display {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        
+        .text-heading {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        
+        /* Hero animations */
+        @keyframes meshPulse1 {
+            0%, 100% { cx: 850; cy: 120; r: 4; opacity: 0.4; }
+            50% { cx: 880; cy: 100; r: 5; opacity: 0.7; }
+        }
+        
+        @keyframes meshPulse2 {
+            0%, 100% { cx: 950; cy: 300; r: 3; opacity: 0.3; }
+            50% { cx: 920; cy: 330; r: 4; opacity: 0.6; }
+        }
+        
+        @keyframes meshPulse3 {
+            0%, 100% { cx: 800; cy: 500; r: 3.5; opacity: 0.35; }
+            50% { cx: 770; cy: 470; r: 4.5; opacity: 0.65; }
+        }
+        
+        @keyframes meshPulse4 {
+            0%, 100% { cx: 650; cy: 200; r: 3; opacity: 0.3; }
+            50% { cx: 680; cy: 180; r: 4; opacity: 0.6; }
+        }
+        
+        @keyframes meshPulse5 {
+            0%, 100% { cx: 750; cy: 350; r: 3.5; opacity: 0.32; }
+            50% { cx: 720; cy: 370; r: 4.5; opacity: 0.62; }
+        }
+        
+        @keyframes meshPulse6 {
+            0%, 100% { cx: 900; cy: 450; r: 3; opacity: 0.28; }
+            50% { cx: 930; cy: 430; r: 4; opacity: 0.58; }
+        }
+        
+        @keyframes meshPulse7 {
+            0%, 100% { cx: 150; cy: 600; r: 3.5; opacity: 0.25; }
+            50% { cx: 180; cy: 580; r: 4.5; opacity: 0.55; }
+        }
+        
+        @keyframes meshPulse8 {
+            0%, 100% { cx: 250; cy: 450; r: 3; opacity: 0.27; }
+            50% { cx: 230; cy: 470; r: 4; opacity: 0.57; }
+        }
+        
+        @keyframes meshLine1 {
+            0%, 100% { x1: 850; y1: 120; x2: 950; y2: 300; opacity: 0.1; }
+            50% { x1: 880; y1: 100; x2: 920; y2: 330; opacity: 0.2; }
+        }
+        
+        @keyframes meshLine2 {
+            0%, 100% { x1: 950; y1: 300; x2: 800; y2: 500; opacity: 0.08; }
+            50% { x1: 920; y1: 330; x2: 770; y2: 470; opacity: 0.18; }
+        }
+        
+        @keyframes meshLine3 {
+            0%, 100% { x1: 850; y1: 120; x2: 800; y2: 500; opacity: 0.12; }
+            50% { x1: 880; y1: 100; x2: 770; y2: 470; opacity: 0.22; }
+        }
+        
+        @keyframes meshLine4 {
+            0%, 100% { x1: 650; y1: 200; x2: 850; y2: 120; opacity: 0.09; }
+            50% { x1: 680; y1: 180; x2: 880; y2: 100; opacity: 0.19; }
+        }
+        
+        @keyframes meshLine5 {
+            0%, 100% { x1: 750; y1: 350; x2: 950; y2: 300; opacity: 0.11; }
+            50% { x1: 720; y1: 370; x2: 920; y2: 330; opacity: 0.21; }
+        }
+        
+        @keyframes meshLine6 {
+            0%, 100% { x1: 750; y1: 350; x2: 800; y2: 500; opacity: 0.07; }
+            50% { x1: 720; y1: 370; x2: 770; y2: 470; opacity: 0.17; }
+        }
+        
+        @keyframes meshLine7 {
+            0%, 100% { x1: 900; y1: 450; x2: 950; y2: 300; opacity: 0.08; }
+            50% { x1: 930; y1: 430; x2: 920; y2: 330; opacity: 0.18; }
+        }
+        
+        @keyframes meshLine8 {
+            0%, 100% { x1: 900; y1: 450; x2: 800; y2: 500; opacity: 0.1; }
+            50% { x1: 930; y1: 430; x2: 770; y2: 470; opacity: 0.2; }
+        }
+        
+        @keyframes meshLine9 {
+            0%, 100% { x1: 150; y1: 600; x2: 250; y2: 450; opacity: 0.06; }
+            50% { x1: 180; y1: 580; x2: 230; y2: 470; opacity: 0.16; }
+        }
+        
+        @keyframes meshLine10 {
+            0%, 100% { x1: 650; y1: 200; x2: 750; y2: 350; opacity: 0.09; }
+            50% { x1: 680; y1: 180; x2: 720; y2: 370; opacity: 0.19; }
+        }
+        
+        .hero-decoration {
+            position: absolute;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .hero-decoration svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .mesh-node {
+            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+        }
+        
+        .mesh-node:nth-child(11) {
+            animation: meshPulse1 4s ease-in-out infinite;
+        }
+        
+        .mesh-node:nth-child(12) {
+            animation: meshPulse2 5s ease-in-out infinite 0.5s;
+        }
+        
+        .mesh-node:nth-child(13) {
+            animation: meshPulse3 4.5s ease-in-out infinite 1s;
+        }
+        
+        .mesh-node:nth-child(14) {
+            animation: meshPulse4 4.8s ease-in-out infinite 0.3s;
+        }
+        
+        .mesh-node:nth-child(15) {
+            animation: meshPulse5 5.2s ease-in-out infinite 0.8s;
+        }
+        
+        .mesh-node:nth-child(16) {
+            animation: meshPulse6 4.6s ease-in-out infinite 1.2s;
+        }
+        
+        .mesh-node:nth-child(17) {
+            animation: meshPulse7 5.5s ease-in-out infinite 0.6s;
+        }
+        
+        .mesh-node:nth-child(18) {
+            animation: meshPulse8 4.9s ease-in-out infinite 1.4s;
+        }
+        
+        .mesh-line {
+            stroke: rgba(0, 0, 0, 0.1);
+            stroke-width: 1;
+        }
+        
+        .mesh-line:nth-child(1) {
+            animation: meshLine1 6s ease-in-out infinite;
+        }
+        
+        .mesh-line:nth-child(2) {
+            animation: meshLine2 6.5s ease-in-out infinite 0.5s;
+        }
+        
+        .mesh-line:nth-child(3) {
+            animation: meshLine3 7s ease-in-out infinite 1s;
+        }
+        
+        .mesh-line:nth-child(4) {
+            animation: meshLine4 6.8s ease-in-out infinite 0.3s;
+        }
+        
+        .mesh-line:nth-child(5) {
+            animation: meshLine5 6.3s ease-in-out infinite 0.7s;
+        }
+        
+        .mesh-line:nth-child(6) {
+            animation: meshLine6 7.2s ease-in-out infinite 1.1s;
+        }
+        
+        .mesh-line:nth-child(7) {
+            animation: meshLine7 6.6s ease-in-out infinite 0.4s;
+        }
+        
+        .mesh-line:nth-child(8) {
+            animation: meshLine8 6.9s ease-in-out infinite 0.9s;
+        }
+        
+        .mesh-line:nth-child(9) {
+            animation: meshLine9 7.3s ease-in-out infinite 1.3s;
+        }
+        
+        .mesh-line:nth-child(10) {
+            animation: meshLine10 6.4s ease-in-out infinite 0.6s;
+        }
+        
+        .hero-decoration-2 {
+            display: none;
+        }
+        
+        .hero-title {
+            background: linear-gradient(135deg, var(--color-black) 0%, #333333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+
+    <!-- ========== HEADER ========== -->
+    <header id="header">
+        <nav class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="#home" class="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img src="assets/AlgoLinx.png" alt="AlgoLinx" style="height: 48px; width: auto; transform: scale(1.0); transform-origin: left center;">
+            </a>
+            
+            <div class="desktop-nav flex items-center gap-1">
+                <a href="#home" class="nav-link px-4 py-2">Home</a>
+                <a href="#approach" class="nav-link px-4 py-2">Approach</a>
+                <a href="#products" class="nav-link px-4 py-2">Products</a>
+                <a href="#oath" class="nav-link px-4 py-2">Oath</a>
+                <a href="#contact" class="nav-link px-4 py-2">Contact</a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="mobile-nav-link">Home</a>
+        <a href="#approach" class="mobile-nav-link">Approach</a>
+        <a href="#products" class="mobile-nav-link">Products</a>
+        <a href="#oath" class="mobile-nav-link">Oath</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section id="home" class="relative min-h-screen flex items-start justify-center pt-32 pb-12 overflow-hidden">
+        <!-- Animated mesh topology network -->
+        <div class="hero-decoration hero-decoration-1">
+            <svg viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <!-- Connection lines -->
+                <line class="mesh-line" x1="850" y1="120" x2="950" y2="300" />
+                <line class="mesh-line" x1="950" y1="300" x2="800" y2="500" />
+                <line class="mesh-line" x1="850" y1="120" x2="800" y2="500" />
+                <line class="mesh-line" x1="650" y1="200" x2="850" y2="120" />
+                <line class="mesh-line" x1="750" y1="350" x2="950" y2="300" />
+                <line class="mesh-line" x1="750" y1="350" x2="800" y2="500" />
+                <line class="mesh-line" x1="900" y1="450" x2="950" y2="300" />
+                <line class="mesh-line" x1="900" y1="450" x2="800" y2="500" />
+                <line class="mesh-line" x1="150" y1="600" x2="250" y2="450" />
+                <line class="mesh-line" x1="650" y1="200" x2="750" y2="350" />
+                
+                <!-- Pulsing nodes -->
+                <circle class="mesh-node" cx="850" cy="120" r="4" fill="rgba(0,0,0,0.4)" />
+                <circle class="mesh-node" cx="950" cy="300" r="3" fill="rgba(0,0,0,0.3)" />
+                <circle class="mesh-node" cx="800" cy="500" r="3.5" fill="rgba(0,0,0,0.35)" />
+                <circle class="mesh-node" cx="650" cy="200" r="3" fill="rgba(0,0,0,0.3)" />
+                <circle class="mesh-node" cx="750" cy="350" r="3.5" fill="rgba(0,0,0,0.32)" />
+                <circle class="mesh-node" cx="900" cy="450" r="3" fill="rgba(0,0,0,0.28)" />
+                <circle class="mesh-node" cx="150" cy="600" r="3.5" fill="rgba(0,0,0,0.25)" />
+                <circle class="mesh-node" cx="250" cy="450" r="3" fill="rgba(0,0,0,0.27)" />
+            </svg>
+        </div>
+        <div class="hero-decoration hero-decoration-2"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="600">
+                <p class="text-xs uppercase tracking-[0.2em] text-gray-500 font-semibold mb-6" data-aos="fade-up" data-aos-delay="100" data-aos-duration="600">AlgoLinx</p>
+                
+                <h1 class="text-display mb-6 hero-title" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+                    Designed to support better living.
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mb-8 font-light" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
+                    AlgoLinx builds software products that help people live with more clarity, consistency, and control. We focus on tools that reduce friction, behave predictably, and quietly support better decisions over time.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="400" data-aos-duration="700">
+                    <a href="#products" class="btn btn-black hover:shadow-lg transition-all group">
+                        <span>See our work</span>
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn btn-outline hover:bg-black hover:text-white transition-all">Get updates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== APPROACH ========== -->
+    <section id="approach" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-heading mb-4">Built with care</h2>
+                <p class="text-lg text-gray-600 max-w-2xl">
+                    A small set of principles guides everything we design and ship.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card p-6 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100" data-aos-offset="50">
+                    <h3 class="text-xl font-bold mb-3">Complete, dependable products</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We build finished tools designed to solve real problems. No half-built features, no abandoned releases, no constant rework. What we ship is meant to be relied on and supported responsibly over time.
+                    </p>
+                </div>
+                
+                <div class="card p-6 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200" data-aos-offset="50">
+                    <h3 class="text-xl font-bold mb-3">Reliability as a foundation</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Stability, speed, and correctness are treated as essentials, not upgrades. We release software when it performs consistently in real-world use, not when timelines demand it. Trust is built through careful design and thoughtful execution.
+                    </p>
+                </div>
+                
+                <div class="card p-6 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="300" data-aos-offset="50">
+                    <h3 class="text-xl font-bold mb-3">Focused by design</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Each product has a clear purpose. We avoid feature expansion that dilutes intent and complexity that erodes clarity. Simplicity is the result of hard decisions and disciplined execution.
+                    </p>
+                </div>
+                
+                <div class="card p-6 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="400" data-aos-offset="50">
+                    <h3 class="text-xl font-bold mb-3">User agency</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We design software that respects autonomy and transparency. No dark patterns. No behavioral manipulation. No hidden incentives. Users define the rules. Our systems apply them faithfully.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCTS ========== -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-heading mb-4">Products</h2>
+                <p class="text-lg text-gray-600 max-w-2xl">
+                    Professional grade software for people who expect tools to hold up under real use.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Oath -->
+                <div class="oath-card p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mb-6">
+                        <span class="inline-block px-3 py-1 text-xs uppercase tracking-wider font-semibold text-gray-400 bg-gray-800 rounded-full">In active development</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <img src="assets/OATH_logo.png" alt="Oath" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
+                    </div>
+                    
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Designed to help people follow through on the commitments they choose for themselves. System-level enforcement means your rules stay in place, even when willpower falters.
+                    </p>
+                    
+                    <div class="flex flex-col gap-3">
+                        <button type="button" class="modal-trigger btn btn-white w-full text-center justify-center">
+                            Join Waitlist
+                        </button>
+                        <a href="#oath" class="inline-flex items-center font-semibold text-white hover:translate-x-1 transition-transform justify-center">
+                            Full details
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Coming soon -->
+                <div class="card p-6 hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200" data-aos-offset="50">
+                    <div class="mb-6">
+                        <span class="inline-block px-3 py-1 text-xs uppercase tracking-wider font-semibold text-gray-500 bg-gray-100 rounded-full">Coming soon</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <p class="text-2xl font-bold text-gray-300">Next product</p>
+                    </div>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        More products in development. Same uncompromising approach. More tools for professionals who demand better.
+                    </p>
+                    
+                    <p class="text-sm text-gray-500">
+                        Details when ready.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCT DETAIL: OATH ========== -->
+    <section id="oath" class="oath-section py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="mb-12" data-aos="fade-up">
+                    <div class="mb-6">
+                        <img src="assets/OATH_logo.png" alt="Oath" style="height: 56px; width: auto; filter: brightness(0) invert(1);">
+                    </div>
+                    
+                    <p class="text-2xl md:text-3xl text-gray-200 leading-relaxed mb-8 font-light">
+                        Commitment enforcement at the system level
+                    </p>
+                    
+                    <div class="inline-block px-4 py-2 text-xs uppercase tracking-wider font-semibold text-white bg-gray-800 rounded-full">
+                        In active development
+                    </div>
+                </div>
+                
+                <!-- Why it exists -->
+                <div class="mb-10" data-aos="fade-up" data-aos-delay="100" data-aos-offset="50">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Why it exists</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Flexibility can make it easy to drift away from intentions. Most tools let you change the rules whenever you want. Oath is designed differently: when you've decided something matters, the system keeps you honest.
+                    </p>
+                </div>
+                
+                <!-- Solution -->
+                <div class="mb-10" data-aos="fade-up" data-aos-delay="200" data-aos-offset="50">
+                    <h3 class="text-2xl font-bold mb-4 text-white">How it works</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                        Oath operates at the operating-system level. Rules are enforced with technical rigor. Changing them requires deliberate, difficult steps, not just a click. The system respects your choices by making them hard to undo.
+                    </p>
+                </div>
+                
+                <!-- What it does -->
+                <div class="mb-10" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-6 text-white">What Oath does</h3>
+                    <div class="space-y-4">
+                        <div class="oath-card p-6 rounded-lg">
+                            <p class="font-semibold text-white mb-2">System-level support</p>
+                            <p class="text-gray-400 text-sm">Rules are enforced at the OS level, not easily bypassed or negotiated.</p>
+                        </div>
+                        <div class="oath-card p-6 rounded-lg">
+                            <p class="font-semibold text-white mb-2">Accountability records</p>
+                            <p class="text-gray-400 text-sm">Complete transparency. You see what you've kept, and what you've let slide.</p>
+                        </div>
+                        <div class="oath-card p-6 rounded-lg">
+                            <p class="font-semibold text-white mb-2">Deliberate friction</p>
+                            <p class="text-gray-400 text-sm">Changing your rules takes real work. That work is intentional. That's the point.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- What it's not -->
+                <div class="mb-10" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold mb-6 text-white">What Oath is not</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold text-white mb-1">Not a productivity tracker</p>
+                            <p class="text-gray-400">No habit tracking, no streaks, no motivational rewards. Oath enforces commitments, it doesn't celebrate them.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white mb-1">Not optimized for comfort</p>
+                            <p class="text-gray-400">Built for effect, not ease. Follow-through requires friction. The friction is the feature.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status -->
+                <div class="border border-gray-800 rounded-lg p-8 bg-gray-900" data-aos="fade-up" data-aos-delay="500">
+                    <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 mb-3">Status</p>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Oath is in development. We're building the enforcement layer and running it through real-world testing. We're not rushing release. We're rushing nothing.
+                    </p>
+                    <p class="text-sm text-gray-400 mb-4">
+                        There are no public timelines. We release when the system is dependable.
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Early access is available for users who want to help shape how serious commitment enforcement works.
+                    </p>
+                </div>
+                
+                <!-- Join Waitlist -->
+                <div class="mt-16" data-aos="fade-up" data-aos-delay="600">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Get early access</h3>
+                    <div class="border border-gray-800 rounded-lg p-8 bg-gray-900">
+                        <p class="text-gray-300 mb-6">
+                            Join the waitlist to get early access when Oath launches. We'll notify you when it's ready.
+                        </p>
+                        <div class="flex justify-center">
+                            <button type="button" class="modal-trigger btn btn-white px-8">Join Waitlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WAITLIST MODAL ========== -->
+    <div class="modal" id="waitlistModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            
+            <div class="modal-header">
+                <h2>Join the waitlist</h2>
+                <p>Get early access to Oath when it launches.</p>
+            </div>
+            
+            <form class="modal-form" id="modalWaitlistForm" action="javascript:void(0)" onsubmit="return false;">
+                <input 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    required
+                />
+                <button type="submit" class="btn btn-black">Get Early Access</button>
+            </form>
+            <div class="mt-4 p-3 rounded-lg bg-red-50 hidden modal-error">
+                <p class="text-sm text-red-700 font-semibold">Error: <span class="error-message"></span></p>
+            </div>
+            
+            <div class="modal-success" id="modalSuccess">
+                <p>✓ You're on the list!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-heading mb-4">Stay informed</h2>
+                <p class="text-lg text-gray-600 max-w-2xl">
+                    We announce releases when they’re ready. No noise. No marketing.
+                </p>
+            </div>
+            
+            <div class="max-w-2xl mb-16" data-aos="fade-up" data-aos-delay="100">
+                <div class="card p-8">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-black mb-2">Newsletter</h3>
+                        <p class="text-sm text-gray-600">Product updates and feature announcements.</p>
+                    </div>
+                    
+                    <form class="newsletter-form" action="javascript:void(0)" onsubmit="return false;">
+                        <div class="flex flex-col gap-3">
+                            <input 
+                                type="email" 
+                                placeholder="your@email.com" 
+                                class="w-full px-4 py-3 rounded-lg text-black bg-white border border-gray-200 focus:border-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-5 transition"
+                                required
+                            />
+                            <button type="submit" class="btn btn-black w-full">Subscribe</button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">Unsubscribe anytime.</p>
+                    </form>
+                    
+                    <div class="mt-4 p-3 rounded-lg bg-green-50 hidden newsletter-success">
+                        <p class="text-sm text-green-700 font-semibold">✓ Subscribed successfully</p>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-red-50 hidden newsletter-error">
+                        <p class="text-sm text-red-700 font-semibold">Error: <span class="error-message"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="grid md:grid-cols-2 gap-12 pt-12 border-t border-gray-200" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 mb-2">Email</p>
+                    <a href="mailto:algolinxtech@gmail.com" class="text-black font-semibold hover:text-gray-600 transition-colors">
+                        algolinxtech@gmail.com
+                    </a>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 mb-2">Connect</p>
+                    <div class="flex gap-6">
+                        <a href="https://x.com/algolinx" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-600 transition-colors text-lg" title="X">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.165-6.75-5.938 6.75h-3.308l7.73-8.835L.424 2.25h6.7l4.776 6.318 5.544-6.318zm-.569 18.938h1.83L5.75 4.033H3.81z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/algolinx" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-600 transition-colors text-lg" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="border-t border-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <p class="text-sm text-gray-600">
+                    © 2026 AlgoLinx
+                </p>
+                <nav class="flex gap-8 text-sm text-gray-600">
+                    <a href="#home" class="hover:text-black transition-colors">Home</a>
+                    <a href="#approach" class="hover:text-black transition-colors">Approach</a>
+                    <a href="#products" class="hover:text-black transition-colors">Products</a>
+                    <a href="#oath" class="hover:text-black transition-colors">Oath</a>
+                    <a href="#contact" class="hover:text-black transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Init -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 120,
+        });
+    </script>
+    
+    <script>
+        (() => {
+            'use strict';
+
+            // Navigation active state
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            const setActiveNav = () => {
+                const scrollY = window.pageYOffset;
+
+                sections.forEach(section => {
+                    const sectionHeight = section.offsetHeight;
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                        mobileNavLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', setActiveNav);
+            setActiveNav();
+
+            // Supabase API layer
+            const SUPABASE_URL = window.APP_CONFIG?.SUPABASE_URL;
+            const SUPABASE_ANON_KEY = window.APP_CONFIG?.SUPABASE_ANON_KEY;
+            const supabaseClient = (() => {
+                if (!window.supabase) {
+                    return null;
+                }
+                if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+                    return null;
+                }
+                return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            })();
+
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            const shouldRetry = (error) => {
+                const status = error?.status || error?.statusCode;
+                return !error?.code && (status === undefined || status >= 500);
+            };
+
+            const submitEmail = async ({ table, email, duplicateMessage, retries = 1 }) => {
+                if (!supabaseClient) {
+                    throw new Error('Supabase is not initialized.');
+                }
+
+                let attempt = 0;
+                while (attempt <= retries) {
+                    const { data, error } = await supabaseClient
+                        .from(table)
+                        .insert([{ email }]);
+
+                    if (!error) {
+                        return { status: 'ok', data };
+                    }
+
+                    if (error.code === '23505') {
+                        return { status: 'duplicate', message: duplicateMessage };
+                    }
+
+                    if (attempt < retries && shouldRetry(error)) {
+                        await sleep(400 * (attempt + 1));
+                        attempt += 1;
+                        continue;
+                    }
+
+                    throw error;
+                }
+            };
+
+            const setButtonState = (button, { text, disabled }) => {
+                if (!button) return;
+                button.textContent = text;
+                button.disabled = disabled;
+            };
+
+            const showInlineMessage = (successEl, errorEl, isSuccess, message) => {
+                if (isSuccess) {
+                    successEl?.classList.remove('hidden');
+                    errorEl?.classList.add('hidden');
+                    const successText = successEl?.querySelector('p');
+                    if (successText && message) successText.textContent = message;
+                } else {
+                    errorEl?.classList.remove('hidden');
+                    successEl?.classList.add('hidden');
+                    const errorMessageEl = errorEl?.querySelector('.error-message');
+                    if (errorMessageEl) errorMessageEl.textContent = message;
+                }
+            };
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (!header) return;
+                if (window.scrollY > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger?.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu?.classList.toggle('active');
+                document.body.style.overflow = mobileMenu?.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close mobile menu on link click
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger?.classList.remove('active');
+                    mobileMenu?.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Intercept all form submissions to avoid reloads
+            document.addEventListener('submit', (event) => {
+                const form = event.target;
+                if (!(form instanceof HTMLFormElement)) return;
+                if (form.matches('.newsletter-form') || form.id === 'modalWaitlistForm') return;
+                event.preventDefault();
+            });
+
+            // Form submission - Newsletter
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const form = event.currentTarget;
+                    const button = form.querySelector('button');
+                    const input = form.querySelector('input[type="email"]');
+                    const successEl = form.parentElement?.querySelector('.newsletter-success');
+                    const errorEl = form.parentElement?.querySelector('.newsletter-error');
+                    const originalText = button?.textContent || 'Subscribe';
+
+                    if (!input?.value) return;
+
+                    setButtonState(button, { text: 'Subscribing...', disabled: true });
+
+                    try {
+                        const result = await submitEmail({
+                            table: 'newsletter_subscribers',
+                            email: input.value.toLowerCase(),
+                            duplicateMessage: 'This email is already present.',
+                            retries: 1,
+                        });
+
+                        if (result.status === 'duplicate') {
+                            showInlineMessage(successEl, errorEl, true, result.message);
+                            setButtonState(button, { text: 'Already on the list', disabled: true });
+                        } else {
+                            showInlineMessage(successEl, errorEl, true, '✓ Subscribed successfully');
+                            setButtonState(button, { text: 'Subscribed!', disabled: true });
+                        }
+                        form.reset();
+                    } catch (error) {
+                        showInlineMessage(successEl, errorEl, false, error.message || 'Something went wrong.');
+                        setButtonState(button, { text: originalText, disabled: false });
+                    }
+                });
+            }
+
+            // Modal functionality
+            const modal = document.getElementById('waitlistModal');
+            const modalClose = document.getElementById('modalClose');
+            const modalTriggers = document.querySelectorAll('.modal-trigger');
+            const modalForm = document.getElementById('modalWaitlistForm');
+            const modalSuccess = document.getElementById('modalSuccess');
+            const modalError = modal?.querySelector('.modal-error');
+
+            const closeModal = () => {
+                modal?.classList.remove('active');
+                document.body.style.overflow = '';
+                modalSuccess?.classList.remove('show');
+                modalError?.classList.add('hidden');
+                modalForm?.reset();
+            };
+
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    modal?.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    modalForm?.querySelector('input[type="email"]')?.focus();
+                });
+            });
+
+            modalClose?.addEventListener('click', closeModal);
+
+            modal?.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Modal form submission
+            modalForm?.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const form = event.currentTarget;
+                const button = form.querySelector('button');
+                const input = form.querySelector('input[type="email"]');
+                const originalText = button?.textContent || 'Get Early Access';
+
+                if (!input?.value) return;
+
+                setButtonState(button, { text: 'Adding...', disabled: true });
+
+                try {
+                    const result = await submitEmail({
+                        table: 'oath_waitlist',
+                        email: input.value.toLowerCase(),
+                        duplicateMessage: 'This email is already present.',
+                        retries: 1,
+                    });
+
+                    modalError?.classList.add('hidden');
+                    if (result.status === 'duplicate') {
+                        if (modalSuccess) {
+                            modalSuccess.classList.add('show');
+                            const successText = modalSuccess.querySelector('p');
+                            if (successText) successText.textContent = 'This email is already present.';
+                        }
+                        setButtonState(button, { text: 'Already on the list', disabled: true });
+                    } else {
+                        if (modalSuccess) {
+                            modalSuccess.classList.add('show');
+                            const successText = modalSuccess.querySelector('p');
+                            if (successText) successText.textContent = '✓ You\'re on the list!';
+                        }
+                        setButtonState(button, { text: 'Added!', disabled: true });
+                        closeModal();
+                    }
+                } catch (error) {
+                    showInlineMessage(null, modalError, false, error.message || 'Something went wrong.');
+                    setButtonState(button, { text: originalText, disabled: false });
+                }
+            });
+
+            // Oath Waitlist button from product card
+            const oathWaitlistBtn = document.querySelector('.oath-waitlist-btn');
+            if (oathWaitlistBtn) {
+                oathWaitlistBtn.addEventListener('click', () => {
+                    const oathSection = document.getElementById('oath');
+                    const offsetTop = oathSection?.offsetTop ? oathSection.offsetTop - 80 : 0;
+
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+
+                    setTimeout(() => {
+                        const waitlistInput = document.querySelector('#modalWaitlistForm input[type="email"]');
+                        waitlistInput?.focus();
+                    }, 600);
+                });
+            }
+
+            // Smooth scroll with offset
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const target = document.querySelector(anchor.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 60;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
+
+</body>
+</html>
