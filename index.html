@@ -194,6 +194,15 @@
             border: 1px solid var(--color-gray-800);
         }
         
+        /* Friction table */
+        .oath-section table thead tr { border-bottom: 1px solid #262626; }
+        .oath-section table tbody tr { border-bottom: 1px solid #1a1a1a; }
+        .oath-section table tbody tr:last-child { border-bottom: none; }
+
+        /* Waitlist counter pulse */
+        @keyframes oath-pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        #waitlistCounterRow .oath-pulse { animation: oath-pulse 2s ease infinite; }
+
         .oath-card:hover {
             background: var(--color-gray-800);
             border-color: var(--color-gray-700);
@@ -893,6 +902,51 @@
                     </div>
                 </div>
                 
+                <!-- === A: FRICTION ESCALATION TABLE === -->
+                <div class="mb-10" data-aos="fade-up" data-aos-offset="50">
+                    <h3 class="text-2xl font-bold mb-2 text-white">How friction escalates</h3>
+                    <p class="text-gray-400 text-sm mb-6">Each unlock attempt within the same day costs more. This is not adjustable. It is the commitment.</p>
+                    <div class="overflow-x-auto rounded-lg border border-gray-800">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-left py-3 px-4 text-gray-500 font-semibold uppercase tracking-wider text-xs">Attempt</th>
+                                    <th class="text-left py-3 px-4 text-gray-500 font-semibold uppercase tracking-wider text-xs">Min. Characters</th>
+                                    <th class="text-left py-3 px-4 text-gray-500 font-semibold uppercase tracking-wider text-xs">Forced Wait</th>
+                                    <th class="text-left py-3 px-4 text-gray-500 font-semibold uppercase tracking-wider text-xs">Unlock Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-4 text-gray-300 font-medium">1st</td>
+                                    <td class="py-3 px-4 text-gray-400">30 chars</td>
+                                    <td class="py-3 px-4 text-gray-400">15 seconds</td>
+                                    <td class="py-3 px-4 text-gray-400">10 min</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-gray-300 font-medium">2nd</td>
+                                    <td class="py-3 px-4 text-gray-400">50 chars</td>
+                                    <td class="py-3 px-4 text-gray-400">30 seconds</td>
+                                    <td class="py-3 px-4 text-gray-400">10 min</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-gray-300 font-medium">3rd</td>
+                                    <td class="py-3 px-4 text-gray-400">60 chars</td>
+                                    <td class="py-3 px-4 text-gray-400">45 seconds</td>
+                                    <td class="py-3 px-4 text-gray-400">10 min</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-white font-semibold">4th+</td>
+                                    <td class="py-3 px-4 text-white font-semibold">80 chars</td>
+                                    <td class="py-3 px-4 text-white font-semibold">60 seconds</td>
+                                    <td class="py-3 px-4 text-gray-400">10 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-3">Free tier: 4 unlocks per day maximum. Premium: configurable durations (5 / 10 / 15 min), unlimited apps enforced.</p>
+                </div>
+
                 <!-- What it's not -->
                 <div class="mb-10" data-aos="fade-up" data-aos-delay="400">
                     <h3 class="text-2xl font-bold mb-6 text-white">What Oath is not</h3>
@@ -908,6 +962,75 @@
                     </div>
                 </div>
                 
+                <!-- === B: FREE vs PREMIUM === -->
+                <div class="mb-10" data-aos="fade-up" data-aos-offset="50">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Free vs Premium</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Free -->
+                        <div class="oath-card p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-5">
+                                <p class="text-lg font-bold text-white">Free</p>
+                                <span class="text-xs uppercase tracking-wider font-semibold text-gray-400 bg-gray-800 px-3 py-1 rounded-full">30-day trial</span>
+                            </div>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                                    <span class="text-gray-300">Up to <strong class="text-white">5 apps</strong> enforced at blocking time</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                                    <span class="text-gray-300">Max <strong class="text-white">4 unlocks</strong> per day</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                                    <span class="text-gray-300">Fixed <strong class="text-white">10-minute</strong> unlock window</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                                    <span class="text-gray-300">Escalating reflection friction</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                                    <span class="text-gray-300">Commitment log &amp; shame log</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Premium -->
+                        <div class="rounded-lg p-6" style="background:#1a1a1a; border: 1px solid #333;">
+                            <div class="flex items-center justify-between mb-5">
+                                <p class="text-lg font-bold text-white">Premium</p>
+                                <span class="text-xs uppercase tracking-wider font-semibold text-white bg-gray-700 px-3 py-1 rounded-full">$3.99 / month</span>
+                            </div>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-200"><strong class="text-white">Unlimited apps</strong> enforced</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-200">Configurable unlock: <strong class="text-white">5 / 10 / 15 min</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-200"><strong class="text-white">Focus Sessions</strong> — 25 to 120 min, zero bypass possible</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-200"><strong class="text-white">Block Schedules</strong> — time windows by day of week</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-200">Insights &amp; usage analytics</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-white mt-0.5 flex-shrink-0 font-bold">+</span>
+                                    <span class="text-gray-400">AI Coach <span class="text-gray-600">(coming)</span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Status -->
                 <div class="border border-gray-800 rounded-lg p-8 bg-gray-900" data-aos="fade-up" data-aos-delay="500">
                     <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 mb-3">Status</p>
@@ -936,12 +1059,51 @@
                     </div>
                 </div>
 
+                <!-- === C: SCREENSHOT SHOWCASE === -->
+                <div class="mb-10 mt-10" data-aos="fade-up" data-aos-offset="50">
+                    <h3 class="text-2xl font-bold mb-2 text-white">The experience</h3>
+                    <p class="text-gray-500 text-sm mb-8">Screenshots from internal testing.</p>
+                    <div class="grid grid-cols-3 gap-4">
+                        <!-- Slot 1: Block overlay — swap this div for <img src="assets/screenshots/oath_block_overlay.png" ...> when ready -->
+                        <div class="flex flex-col gap-2">
+                            <div style="aspect-ratio:9/19.5; background:#0a0a0a; border:1px dashed #333; border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                                <span class="text-xs text-gray-700 text-center px-2">Block overlay</span>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">OS blocks the app</p>
+                        </div>
+                        <!-- Slot 2: Reflection typing — swap for <img src="assets/screenshots/oath_reflection_typing.png" ...> -->
+                        <div class="flex flex-col gap-2">
+                            <div style="aspect-ratio:9/19.5; background:#0a0a0a; border:1px dashed #333; border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                                <span class="text-xs text-gray-700 text-center px-2">Unlock reflection</span>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">You earn the unlock</p>
+                        </div>
+                        <!-- Slot 3: Focus session — swap for <img src="assets/screenshots/oath_focus_session.png" ...> -->
+                        <div class="flex flex-col gap-2">
+                            <div style="aspect-ratio:9/19.5; background:#0a0a0a; border:1px dashed #333; border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                                <span class="text-xs text-gray-700 text-center px-2">Focus session</span>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">No unlock possible</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Join Waitlist -->
                 <div class="mt-16" data-aos="fade-up" data-aos-delay="600">
                     <h3 class="text-2xl font-bold mb-6 text-white">Get early access</h3>
                     <div class="border border-gray-800 rounded-lg p-8 bg-gray-900">
-                        <p class="text-gray-300 mb-6">
-                            Join the waitlist to get early access when Oath launches. We'll notify you when it's ready.
+                        <!-- Live counter — hidden until JS reveals it (requires ≥10 signups) -->
+                        <div id="waitlistCounterRow" style="display:none;" class="flex items-center gap-3 mb-5">
+                            <div class="w-2 h-2 rounded-full bg-white flex-shrink-0 oath-pulse"></div>
+                            <p class="text-sm text-gray-400">
+                                <span id="waitlistCount" class="text-white font-semibold">—</span> people already on the list
+                            </p>
+                        </div>
+                        <p class="text-gray-300 mb-2">
+                            Join the waitlist to get early access when Oath launches publicly.
+                        </p>
+                        <p class="text-sm text-gray-500 mb-6">
+                            Android only. No release date. We ship when the system is solid.
                         </p>
                         <div class="flex justify-center">
                             <button type="button" class="modal-trigger btn btn-white px-8">Join Waitlist</button>
@@ -1350,6 +1512,24 @@
                     }, 600);
                 });
             }
+
+            // Live waitlist counter
+            const loadWaitlistCount = async () => {
+                if (typeof supabaseClient === 'undefined' || !supabaseClient) return;
+                try {
+                    const { count, error } = await supabaseClient
+                        .from('oath_waitlist')
+                        .select('*', { count: 'exact', head: true });
+                    if (error || count === null || count < 10) return;
+                    const countEl = document.getElementById('waitlistCount');
+                    const rowEl = document.getElementById('waitlistCounterRow');
+                    if (countEl && rowEl) {
+                        countEl.textContent = count.toLocaleString();
+                        rowEl.style.display = 'flex';
+                    }
+                } catch (_) { /* fail silently */ }
+            };
+            loadWaitlistCount();
 
             // Smooth scroll with offset
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
