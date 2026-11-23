@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy – Oath | AlgoLinx</title>
+    <title>Privacy Policy, OATH | AlgoLinx</title>
     <meta name="description" content="Privacy Policy for Oath by AlgoLinx. Clear, direct information about how we handle your data.">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/website_favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/website_favicon.png">
@@ -244,107 +244,79 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="content-section">
                 <h1>Privacy Policy</h1>
-                <p class="update-date">Last updated: February 16, 2026</p>
-                
+                <p class="update-date">Last updated: November 24, 2026</p>
                 <p class="intro">
-                    This policy describes what data Oath collects, why we collect it, and how we handle it. We believe privacy policies should be clear and direct.
+                    This policy describes what data the OATH app (Android, package com.oath.app) collects, why, where it goes, how long it is kept and how to delete it.
                 </p>
-                
+
                 <div class="highlight-box">
-                    <p><strong>Simple version:</strong> Oath collects only the data needed to enforce commitments. We don't sell your information. We don't track you for advertising. We don't use dark patterns.</p>
+                    <p><strong>Simple version:</strong> What you write in OATH and the apps you choose to block stay on your phone. An account is optional. If you sign in, we keep your email and plan. Anonymous usage statistics and crash reports go to Google Firebase so we can fix problems. We never sell your data and never show ads.</p>
                 </div>
-                
+
                 <h2>Who we are</h2>
-                <p>Oath is developed and operated by Algolinx Tech. You can reach us at <a href="mailto:support@algolinx-tech.in" class="font-semibold text-black hover:underline">support@algolinx-tech.in</a>.</p>
-                
+                <p>OATH is developed and operated by AlgoLinx Tech, India. Contact: <a href="mailto:support@algolinx-tech.in" class="font-semibold text-black hover:underline">support@algolinx-tech.in</a>.</p>
+
                 <div class="divider"></div>
-                
-                <h2>What data we collect</h2>
-                
-                <h3>App usage data</h3>
-                <p>Oath uses Android's Usage Access permission to monitor which apps you open and how long you use them. This is necessary to enforce the rules you set.</p>
-                <p>This data stays on your device. We do not upload it to external servers for tracking, analytics, or advertising purposes.</p>
-                
-                <h3>Account information</h3>
-                <p>If you create an account, we collect:</p>
+
+                <h2>Accessibility Service</h2>
+                <p>OATH uses Android's Accessibility Service (BIND_ACCESSIBILITY_SERVICE) for one purpose: to know which app is coming to the screen, so it can show your pause screen when you open an app you chose to block. OATH shows a disclosure screen and asks for your consent before you turn it on.</p>
                 <ul>
-                    <li>Email address (for login and communication)</li>
-                    <li>Device identifier (to sync your settings across sessions)</li>
-                    <li>Subscription status (to verify access to features)</li>
+                    <li>OATH reads only the package name of the app that opens (for example, com.google.android.youtube).</li>
+                    <li>It does not read what is on your screen, your messages, passwords or anything you type.</li>
+                    <li>Nothing observed through the Accessibility Service is sent off your phone, shared or sold.</li>
+                    <li>You can switch it off at any time in Android Settings, Accessibility.</li>
                 </ul>
-                
-                <h3>Commitment rules and logs</h3>
-                <p>Oath stores the rules you define (blocked apps, time restrictions, enforcement settings). These are saved locally on your device and optionally synced to our servers if you enable cloud backup.</p>
-                <p>Accountability logs (records of apps you attempted to access) are stored locally unless you explicitly enable cloud sync.</p>
-                
-                <h3>Payment information</h3>
-                <p>We do not collect or store payment details. All transactions are processed securely through Google Play's billing system. Google handles your payment information according to their privacy policy.</p>
-                
-                <div class="divider"></div>
-                
-                <h2>How we use your data</h2>
-                <p>We use collected data for the following purposes:</p>
+
+                <h2>Data that stays on your phone</h2>
                 <ul>
-                    <li><strong>Enforce commitments:</strong> App usage data is monitored to apply the rules you set</li>
-                    <li><strong>Account management:</strong> Your email and credentials are used to authenticate your account and restore settings</li>
-                    <li><strong>Subscription verification:</strong> We check your subscription status to grant access to premium features</li>
-                    <li><strong>Support and debugging:</strong> If you contact support, we may review your account data to troubleshoot issues</li>
+                    <li>Your vow and the words you write at the pause screen</li>
+                    <li>The list of apps you guard, your lock times and limits</li>
+                    <li>Your open counts and history shown in Insights</li>
+                    <li>Screen time per app, if you allow Usage Access (PACKAGE_USAGE_STATS). It is only shown to you in the app.</li>
                 </ul>
-                <p>We do not use your data for advertising, behavioral profiling, or selling to third parties.</p>
-                
+                <p>You can erase all of this in the app: Settings, Privacy and data, Delete all data on this phone. Uninstalling OATH also removes it.</p>
+
+                <h2>Data we collect</h2>
+                <h3>Account (optional)</h3>
+                <p>If you create an account or sign in with Google, we store your email address, an account ID, your plan status and the count of unlock attempts (the event type only, never what you wrote). Stored with Supabase (<a href="https://supabase.com/privacy" target="_blank" rel="noopener" class="text-black font-semibold hover:underline">privacy</a>), encrypted in transit.</p>
+                <h3>Purchases</h3>
+                <p>OATH Plus is sold through Google Play Billing. We never see your card or UPI details. RevenueCat (<a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener" class="text-black font-semibold hover:underline">privacy</a>) receives your purchase history and your account ID to confirm your plan on every phone you sign in to.</p>
+                <h3>Usage statistics and crash reports</h3>
+                <p>OATH uses Google Firebase Analytics and Crashlytics (<a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="text-black font-semibold hover:underline">privacy</a>) to understand which screens are used and to fix crashes. This includes app interactions, device model and Android version, an app instance ID and the Android advertising ID. It is used for analytics only, never for advertising or to build a profile of you. It does not include your vow, what you write, or the apps you block.</p>
+                <h3>Good Cause vote</h3>
+                <p>If you vote for the monthly Good Cause, we store your vote with your account ID.</p>
+
                 <div class="divider"></div>
-                
-                <h2>Data sharing and disclosure</h2>
-                <p>We do not sell, rent, or share your personal data with third parties for marketing or advertising purposes.</p>
-                
-                <h3>Service providers</h3>
-                <p>We use Supabase to securely store account information and subscription data. Supabase operates under its own privacy policy and security standards. You can review their practices at <a href="https://supabase.com/privacy" target="_blank" rel="noopener" class="text-black font-semibold hover:underline">supabase.com/privacy</a>.</p>
-                
-                <h3>Legal requirements</h3>
-                <p>We may disclose your information if required by law, court order, or government regulation. We will notify you of such requests unless prohibited by law.</p>
-                
-                <div class="divider"></div>
-                
-                <h2>Data storage and security</h2>
-                <p>Account and subscription data is stored securely using industry-standard encryption. App usage data and commitment logs are stored locally on your device unless you enable cloud sync.</p>
-                <p>We implement reasonable security measures to protect your data from unauthorized access, but no system is completely secure. You are responsible for maintaining the security of your device and account credentials.</p>
-                
-                <div class="divider"></div>
-                
-                <h2>Your rights and control</h2>
-                <p>You have the following rights regarding your data:</p>
+
+                <h2>Other permissions</h2>
                 <ul>
-                    <li><strong>Access:</strong> You can request a copy of the data we store about you</li>
-                    <li><strong>Deletion:</strong> You can delete your account and associated data at any time through the app settings</li>
-                    <li><strong>Correction:</strong> You can update your account information directly in the app</li>
-                    <li><strong>Opt-out of cloud sync:</strong> You can disable cloud backup to keep all data stored locally on your device</li>
+                    <li><strong>Device admin (optional, Plus):</strong> Uninstall protection. OATH holds no device policies; being an active admin only makes uninstalling take extra steps. You can switch it off in OATH or in Android Settings.</li>
+                    <li><strong>Notifications:</strong> the ongoing notification that keeps blocking running.</li>
+                    <li><strong>Ignore battery optimisation:</strong> so Android does not stop blocking in the background.</li>
                 </ul>
-                <p>To exercise these rights or request data deletion, contact us at <a href="mailto:support@algolinx-tech.in" class="font-semibold text-black hover:underline">support@algolinx-tech.in</a>.</p>
-                
+
+                <h2>Sharing</h2>
+                <p>We share data only with the service providers named above, only for the purposes above, and when required by law. We do not sell, rent or trade your data, and OATH contains no ads.</p>
+
+                <h2>Retention</h2>
+                <p>Account and purchase data is kept until you delete your account. Crash reports are kept by Firebase for 90 days; analytics data is kept under Google's retention settings and is not linked to your email.</p>
+
+                <h2>Deleting your data</h2>
+                <ul>
+                    <li><strong>In the app:</strong> Settings, Delete account. This removes your account and the data on our server.</li>
+                    <li><strong>Without the app:</strong> email <a href="mailto:support@algolinx-tech.in" class="font-semibold text-black hover:underline">support@algolinx-tech.in</a> from your account email with the subject "Delete my OATH account". We delete it within 30 days.</li>
+                    <li><strong>On the phone:</strong> Settings, Privacy and data, Delete all data on this phone.</li>
+                </ul>
+                <p>A Google Play subscription is not cancelled by deleting your account. Cancel it in Google Play.</p>
+
+                <h2>Children</h2>
+                <p>OATH is meant for adults (18 and over). We do not knowingly collect data from children. If you believe a child has given us data, contact us and we will delete it.</p>
+
+                <h2>Changes</h2>
+                <p>If this policy changes in a way that matters, we will say so in the app before it takes effect. The date at the top shows the latest version.</p>
+
                 <div class="divider"></div>
-                
-                <h2>Permissions explained</h2>
-                
-                <h3>Usage Access (android.permission.PACKAGE_USAGE_STATS)</h3>
-                <p>This permission allows Oath to monitor which apps you launch and how long you use them. It is required to enforce app blocking rules.</p>
-                <p>This data is used exclusively for commitment enforcement. We do not sell this data to advertisers or third parties.</p>
-                
-                <h3>Device Admin (optional)</h3>
-                <p>If you enable advanced enforcement, Oath may request Device Admin privileges to prevent uninstallation during active commitment periods. This is optional and can be revoked at any time through Android settings.</p>
-                
-                <div class="divider"></div>
-                
-                <h2>Changes to this policy</h2>
-                <p>We may update this privacy policy as Oath evolves. If we make significant changes, we will notify users via email or in-app notification before the changes take effect.</p>
-                <p>The "Last updated" date at the top of this page reflects the most recent revision.</p>
-                
-                <div class="divider"></div>
-                
-                <h2>Children's privacy</h2>
-                <p>Oath is not intended for users under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, contact us and we will delete it.</p>
-                
-                <div class="divider"></div>
-                
+
                 <div class="contact-box">
                     <h3>Questions or concerns?</h3>
                     <p>If you have questions about this privacy policy or how we handle your data, contact us:</p>
